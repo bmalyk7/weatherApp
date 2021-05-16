@@ -1,6 +1,12 @@
 .App {
   text-align: center;
   z-index: 1;
+  padding: 20px;
+}
+
+.main-title{
+  color: whitesmoke;
+  font-size: 45px;
 }
 
 .App-logo {
@@ -47,15 +53,18 @@
   z-index: -1;
 }
 
-.rain{
-  height: 100vh;
-  background-image: url("https://lh3.googleusercontent.com/proxy/yxj1-ie-m-Pn716SnfEEuukQIa7yyAFM6a7auNghqqT58NKpw82NPt1-nAdoE1aXyIyRpMR9rF1oXalo6_ODXx4ccPWQxrPSbjlDJLFNabr_JGzGycuyHwtYkQMoQ3F-rPZ7");
-  animation: rain .4s linear infinite;
+.app-wrapper{
+  display: inline-flex;
+  padding: 50px 30px;
+  gap: 80px;
+  margin: 0 auto;
 }
 
-@keyframes rain {
-  from{background-position:  0% 0%;}
-  to{background-position: -30% 100%;}
+.main-container{
+  padding: 30px 40px;
+  background-color: aquamarine ;
+  border-radius: 30px;
+  height: 70vh;
 }
 
 

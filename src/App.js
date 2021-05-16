@@ -1,81 +1,84 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import Spinner from "./components/spiner/spinner";
-import Background from "./components/background/background";
 import WeatherDisplay from "./components/weatherDisplay/weatherDisplay";
 import FormInput from "./components/form-input/form-input";
 
 
 function App() {
-    const [state,setState] = useState({});
+    const [state, setState] = useState({});
+    const [bg, setBg] = useState('');
+    const [windDir, setWindDir] = useState('');
+    const [error, setError] = useState(false);
 
-    const [bg, setBg] = useState(null);
-    const [rain, setRain] = useState(false);
-    const [lightRain, setLightRain] = useState(false);
-    const [load, setLoad] = useState(false);
 
-    const changeBg = ()=>{
-        switch(state.condition){
-            case 'Sunny':
-                setBg('https://wallpapercave.com/wp/wp7399557.jpg');
-                setRain(false)
-                setLightRain(false);
+    const changeBg = () => {
+        switch (state.isDay) {
+            case 1:
+                setBg('https://images.unsplash.com/photo-1588421357574-87938a86fa28?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80')
                 break;
-            case 'Partly cloudy':
-                setBg('https://seojames.com/wp-content/uploads/2017/10/Clear-Skies-Ahead.jpg');
-                setRain(false)
-                setLightRain(false);
-                break;
-            case 'Overcast':
-                setBg('https://motionarray.imgix.net/preview-2139iK66sRYeMr_0013.jpg');
-                setLightRain(false);
-                break;
-            case 'Patchy rain possible':
-                setBg('https://wallup.net/wp-content/uploads/2019/09/336079-road-rain-storm-clouds-sky.jpg');
-                setRain(false);
-                setLightRain(true);
-                break;
-            case 'Light rain':
-                setBg('https://wallup.net/wp-content/uploads/2019/09/336079-road-rain-storm-clouds-sky.jpg');
-                setRain(false);
-                setLightRain(true);
-                break;
-            case 'Patchy light rain with thunder':
-                setBg('https://wallup.net/wp-content/uploads/2019/09/336079-road-rain-storm-clouds-sky.jpg');
-                setRain(true);
-                setLightRain(false);
-                break;
+            case 0:
+                setBg('https://images.unsplash.com/photo-1593371256584-ac70d0ab43d1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTh8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80')
         }
     }
 
+
+
     const sendCity = (city) => {
-        setLoad(true);
+
         fetch(`http://api.weatherapi.com/v1/current.json?key=b51b016362ba485b828213133211105&q=${city}&aqi=no`)
             .then(res =>
-                res.json())
-            .then(body =>  {
-                setLoad(false);
-                setState({
-                name: body.location.name,
-                temp_c: body.current.temp_c,
-                condition: body.current.condition.text,
-                icon: body.current.condition.icon,
-            })}  )
-            .catch(error=>console.log(error))
-    }
-  useEffect(()=>{
-      changeBg();
-      sendCity();
-  }, [state])
+                    res.json()
 
-  return (
-    <div className="App">
-        <Background rain={rain} bg={bg} lightRain={lightRain} />
-        {load ? <Spinner /> : ''}
-        <WeatherDisplay name={state.name} temp={state.temp_c} condition={state.condition} />
-        <FormInput sendCity={sendCity}  />
-    </div>
-  );
+            )
+            .then(body => {
+                setError(false);
+                setState({
+                    name: body.location.name,
+                    temp_c: body.current.temp_c + '°C',
+                    condition: body.current.condition.text,
+                    icon: body.current.condition.icon,
+                    isDay: body.current.is_day,
+                    date: body.location.localtime,
+                    windSpeed: body.current.wind_kph + 'km/h',
+                    windDirection: body.current.wind_dir,
+                })
+            })
+            .catch(error => {
+                setError(true);
+            })
+    }
+    useEffect(() => {
+        changeBg();
+    }, [state])
+
+    return (
+        <div className="App">
+            <div className='main-container'>
+                <h1 className='main-title'>Weather app</h1>
+                <div className='app-wrapper'>
+                    <FormInput sendCity={sendCity} error={error}/>
+                    <WeatherDisplay
+                        bg={bg} src={state.icon} name={state.name}
+                        date={state.date} temp={state.temp_c}
+                        condition={state.condition}
+                    />
+                </div>
+                {state.windDirection ?
+                    <>
+                    <div style={{display:'flex', alignItems: 'center',gap: '20px'}}>
+                        <span style={{color:'white', fontSize: '25px'}}>Wind speed:</span>
+                        <span style={{color:'white', fontSize: '25px'}}>{state.windSpeed}</span>
+                    </div>
+                    <div style={{display:'flex', alignItems: 'center',gap: '20px'}}>
+                        <span style={{color:'white', fontSize: '25px'}}>Wind direction:</span>
+                        <span style={{color:'white', fontSize: '25px'}}>{state.windDirection}</span>
+                    </div>
+                    </>
+                    : ' ' }
+            </div>
+        </div>
+    );
 }
 
 export default App;

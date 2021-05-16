@@ -1,5 +1,7 @@
 import React,{useState, useEffect} from 'react';
 
+import './form-input.css'
+
 
 const FormInput = ({sendCity, error}) => {
 const[row, setRow] = useState('')
@@ -18,9 +20,12 @@ const onSubmit = (e) => {
     return(
         <div>
             <form onSubmit={onSubmit}>
-                <input onChange={onChange} type='text' value={row} className={error ? 'error-input' : '' } />
-                <button type='submit'>Click</button>
+                <input onChange={onChange} type='text' value={row} className='input' placeholder="Please enter the city" />
+                {error ? <div><span className='incorrect-name'>Please enter correct name</span></div> : ''}
+
+                <button className='btn-form' type='submit'>Submit</button>
             </form>
+
 
 
         </div>

@@ -1,0 +1,31 @@
+.display-wrapper{
+   padding: 10px;
+   width: 300px;
+   border-radius: 10%;
+}
+
+.display-wrapper-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+}
+
+.name{
+    color: white;
+}
+
+.temp{
+    color: white;
+}
+
+.temp:after{
+    content: '';
+    color: white;
+    margin-left: 3px;
+}
+
+.cond{
+    color: white;
+}
+

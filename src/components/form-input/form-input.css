@@ -1,3 +1,32 @@
-.error-input{
-    border-color: red;
+.input{
+    width: 400px;
+    height: 30px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 25px;
+    border: none;
+}
+
+
+.input:focus{
+    outline: none;
+}
+
+.btn-form{
+    font-size: 25px;
+    padding: 5px 10px;
+    background-color: #61dafb ;
+    border: none;
+    border-radius: 10px;
+    text-transform: uppercase;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.incorrect-name{
+    font-size: 12px;
+    color: red;
+    margin: 2px;
+    text-align: center;
 }
