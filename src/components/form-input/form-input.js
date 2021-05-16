@@ -21,10 +21,9 @@ const onSubmit = (e) => {
         <div>
             <form onSubmit={onSubmit}>
                 <input onChange={onChange} type='text' value={row} className='input' placeholder="Please enter the city" />
-                {error ? <div><span className='incorrect-name'>Please enter correct name</span></div> : ''}
-
                 <button className='btn-form' type='submit'>Submit</button>
             </form>
+            {error ? <span className='incorrect-name'>Please enter correct name</span> : ''}
 
 
 

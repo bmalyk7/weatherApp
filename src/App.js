@@ -58,13 +58,13 @@ function App() {
                 <h1 className='main-title'>Weather app</h1>
                 <div className='app-wrapper'>
                     <FormInput sendCity={sendCity} error={error}/>
-                    <WeatherDisplay
+                    { !error ? <WeatherDisplay
                         bg={bg} src={state.icon} name={state.name}
                         date={state.date} temp={state.temp_c}
                         condition={state.condition}
-                    />
+                    /> : ''}
                 </div>
-                {state.windDirection ?
+                {!error ?
                     <>
                     <div style={{display:'flex', alignItems: 'center',gap: '20px'}}>
                         <span style={{color:'white', fontSize: '25px'}}>Wind speed:</span>
