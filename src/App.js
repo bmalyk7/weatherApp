@@ -74,6 +74,7 @@ function App() {
                         bg={bg} src={state.icon} name={state.name}
                         date={state.date} temp={state.temp_c}
                         condition={state.condition} rain={isRain}
+                        snow={isSnow}
                     /> : ''}
                 </div>
                 {!error ?
