@@ -11,7 +11,7 @@ function App() {
     const [windDir, setWindDir] = useState('');
     const [error, setError] = useState(false);
     const [isRain, setRain] = useState(false);
-
+    const [isSnow, setSnow] = useState(false);
 
     const changeBg = () => {
         switch (state.isDay) {
@@ -26,6 +26,10 @@ function App() {
     const checkRain = () => {
        setRain(state.condition?.includes('rain'));
        console.log(isRain);
+    }
+    const checkSnow = () => {
+        setSnow(state.condition?.includes('snow'));
+        console.log(isSnow);
     }
 
 
@@ -57,6 +61,7 @@ function App() {
     useEffect(() => {
         changeBg();
         checkRain();
+        checkSnow();
     }, [state])
 
     return (

@@ -45,4 +45,31 @@
     to{background-position: 30% 100%;}
 }
 
+.rain{
+    position: absolute;
+    background: url("https://www.freeiconspng.com/thumbs/rain-png/rain-png-transparent-9.png") center ;
+    left: 10%;
+    width: 80%;
+    height: 90%;
+    animation: rain .3s linear  infinite;
+}
+
+.snow{
+    position: absolute;
+    background: url("https://pngimg.com/uploads/snow/snow_PNG10.png") center ;
+    left: 10%;
+    width: 80%;
+    height: 90%;
+    animation: snow .3s linear  infinite;
+}
+
+@keyframes rain {
+    from{background-position: 0% 0%;}
+    to{background-position: 30% 100%;}
+}
+
+@keyframes snow {
+    from{background-position: 0% 0%;}
+    to{background-position: 8% -12%;}
+}
 
