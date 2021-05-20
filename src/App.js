@@ -10,6 +10,7 @@ function App() {
     const [bg, setBg] = useState('');
     const [windDir, setWindDir] = useState('');
     const [error, setError] = useState(false);
+    const [isRain, setRain] = useState(false);
 
 
     const changeBg = () => {
@@ -20,6 +21,11 @@ function App() {
             case 0:
                 setBg('https://images.unsplash.com/photo-1593371256584-ac70d0ab43d1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTh8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80')
         }
+    }
+
+    const checkRain = () => {
+       setRain(state.condition?.includes('rain'));
+       console.log(isRain);
     }
 
 
@@ -50,6 +56,7 @@ function App() {
     }
     useEffect(() => {
         changeBg();
+        checkRain();
     }, [state])
 
     return (
@@ -61,7 +68,7 @@ function App() {
                     { !error ? <WeatherDisplay
                         bg={bg} src={state.icon} name={state.name}
                         date={state.date} temp={state.temp_c}
-                        condition={state.condition}
+                        condition={state.condition} rain={isRain}
                     /> : ''}
                 </div>
                 {!error ?
